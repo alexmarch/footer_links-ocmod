@@ -1,0 +1,69 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        {# <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button> #}
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      	<h1>{{ heading_title }}</h1>
+			</div>
+			{% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_link_add }}</h3>
+      </div>
+      <div class="panel-body">
+        {% if error_link_href %}
+            <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_link_href }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        {% if error_link_text %}
+            <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_link_text }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="link_href">{{ text_link_href }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="link_href" value="{{ footer_link['link'] }}" placeholder="{{ link_href }}" id="link_href" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="link_text">{{ text_link_text }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="link_text" value="{{ footer_link['text'] }}" placeholder="{{ link_text }}" id="link_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="link_status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="link_status" id="link_status" class="form-control">
+                {% if footer_link['status'] %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          {# submit button #}
+          <div class="form-group">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">{{ button_save }}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+		</div>
+	</div>
+</div>
+{{ footer }}

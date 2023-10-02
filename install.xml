@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<name>Ссылки в футере</name>
+	<code>FooterLinks</code>
+	<version>0.0.7</version>
+	<author>AlexM</author>
+	<link>https://github.com/alexmarch/footer_links-ocmod</link>
+	<file path="catalog/view/theme/default/template/common/footer.twig">
+		<operation>
+			<search><![CDATA[
+				{{ links }}
+			]]></search>
+			<add><![CDATA[
+				<ul class="footer-menu">
+					{% for link in footer_links %}
+						<li class="footer-menu__item"><a href="{{ link.link }}" class="footer-menu__link" target="_blank">{{ link.text }}</a></li>
+					{% endfor %}
+				</ul>
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/footer.php">
+		<operation>
+			<search><![CDATA[
+				$this->load->model('catalog/information');
+			]]></search>
+			<add position="after"><![CDATA[
+				$this->load->model('extension/module/footer_links');
+
+				$data['footer_links'] = array();
+
+				foreach ($this->model_extension_module_footer_links->getAllFooterLinks(['status' => 1]) as $result) {
+					$data['footer_links'][] = array(
+						'text' => $result['text'],
+						'link' => $result['link']
+					);
+				}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/ru-ru/ru-ru.php">
+		<operation>
+			<search><![CDATA[
+					$_['tab_general']                   = 'Общие';
+				]]>
+			</search>
+			<add position="after"><![CDATA[
+					$_['tab_footer_links']          = 'Ссылки в футере';
+				]]>
+			</add>
+		</operation>
+	</file>
+</modification>
